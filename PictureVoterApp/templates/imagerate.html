@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+{% if user.is_authenticated %}
+<html>
+<head>
+  <title>Rate the Image</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      user-select: none;
+    }
+    .rating-container {
+      text-align: center;
+      margin-top: 10px;
+      user-select: none;
+    }
+    .image-container{
+      text-align: center;
+      margin-top: 10px;
+      user-select: none;
+    }
+    .rating-stars {
+      font-size: 30px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      display: inline-block;
+    }
+      .rating-stars:not(.selected) {
+      transform: scale(1);
+        }
+    .rating-stars:hover{
+      transform: scale(1.5);
+      color: gold;
+    }
+    .rating-stars.selected {
+      color: gold;
+      transform: scale(1.5);
+    }
+    .selected-rating {
+      font-size: 30px;
+      
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="image-container">
+    <img src="{{ random_drawing.image_data }}" alt="Drawing">
+    <h1> {{ random_drawing.drawing_name}} </h1>
+    <p1>Past Rating: {{random_drawing.rating}}</p1>
+  </div>
+</br>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="rating-container">
+    <p>Rate the image:</p>
+    <span class="rating-stars" data-rating="1">★</span>
+    <span class="rating-stars" data-rating="2">★</span>
+    <span class="rating-stars" data-rating="3">★</span>
+    <span class="rating-stars" data-rating="4">★</span>
+    <span class="rating-stars" data-rating="5">★</span>
+    <span class="rating-stars" data-rating="6">★</span>
+    <span class="rating-stars" data-rating="7">★</span>
+    <span class="rating-stars" data-rating="8">★</span>
+    <span class="rating-stars" data-rating="9">★</span>
+    <span class="rating-stars" data-rating="10">★</span>
+    <p class="selected-rating">Your rating: </p>
+
+    <!-- Needs this drawing ID thing to assign the rating to right picture -->
+    <input type="hidden" name="drawing_id" value="{{ random_drawing.id }}">
+    <input type="hidden" id="finalRating" name="rating">
+    <button type="submit">Submit Rating</button>
+    
+  </div>
+  
+</form>
+
+  <script>
+    const ratingStars = document.querySelectorAll('.rating-stars');
+    const selectedRating = document.querySelector('.selected-rating');
+
+    let userRating = 0;
+    ratingStars.forEach(star => {
+      star.addEventListener('click', function() {
+        userRating = parseInt(star.getAttribute('data-rating'));
+        updateRatingDisplay();
+      });
+    });
+
+    function updateRatingDisplay() {
+      selectedRating.innerText = `Your rating: ${userRating}/10`;
+      var finalRating = document.getElementById("finalRating");
+      finalRating.value=userRating;
+      ratingStars.forEach((star, index) => {
+        if (index < userRating) {
+          star.classList.add('selected');
+        } else {
+          star.classList.remove('selected');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+
+{% else %}
+<div class= "col-md-6 offset-md-3">
+  <h1>Login</h1>
+  </br>
+  <form method="POST" action = "{% url 'home' %}">
+    {%csrf_token %}
+    <form>
+  <!-- Username input -->
+  <div class="form-outline mb-4">
+    <input type="text" name="username" class="form-control" placeholder='Username' required />
+  </div>
+
+  <!-- Password input -->
+  <div class="form-outline mb-4">
+    <input type="password" name="password" class="form-control" placeholder='Password' required />
+  </div>
+
+  <!-- 2 column grid layout for inline styling -->
+  <div class="row mb-4">
+    <div class="col d-flex justify-content-center">
+      <!-- Checkbox -->
+    </div>
+
+  </div>
+
+  <!-- Submit button -->
+  <button type="submit" class="btn btn-secondary btn-block">Sign in</button>
+</form>
+</div>
+{% endif %}
+
+{% endblock content %}
