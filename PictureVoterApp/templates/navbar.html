@@ -1,3 +1,4 @@
+<!-- All this code is for the navigation bar at the top -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url 'home' %}">PictureVoter</a>
@@ -8,7 +9,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
         {% if user.is_authenticated %}
-
+        <!-- If user is logged in see this-->
         <li class="nav-item">
           <a class="nav-link" href="{% url 'draw_and_submit' %}">Draw Images</a>
         </li>
@@ -21,7 +22,7 @@
           <a class="nav-link" href="{% url 'logout' %}">Logout</a>
         </li>
 
-
+        <!-- If user isnt logged in see this -->
         {% else %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'home' %}">Login</a>

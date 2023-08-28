@@ -9,7 +9,7 @@ from .forms import DrawingForm, RatingForm
 
 import random
 
-# Create your views here.
+# This is the home page with everything
 def home(request):
   records = Record.objects.all()
 
@@ -48,11 +48,13 @@ def imagerate(request):
     return render(request, 'imagerate.html', {'random_drawing': random_drawing,'rating_form': rating_form})
 
 
+#Logging out user
 def logout_user(request):
   logout(request)
   messages.success(request, "Successfully logged out")
   return redirect('home')
 
+#Registering the user
 def register_user(request):
   if request.method == 'POST':
     form = SignUpForm(request.POST)
@@ -71,7 +73,7 @@ def register_user(request):
   
   return render(request, 'register.html', {'form':form})
 
-
+#When someone submits their drawing
 def draw_and_submit(request):
     if request.method == 'POST':
         form = DrawingForm(request.POST)

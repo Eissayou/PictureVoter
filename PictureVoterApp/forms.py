@@ -36,6 +36,7 @@ class SignUpForm(UserCreationForm):
 
 
 # Create Add Record Form
+# This AddRecordForm is not being used so I can just delete it 
 class AddRecordForm(forms.ModelForm):
 	first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"First Name", "class":"form-control"}), label="")
 	last_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Last Name", "class":"form-control"}), label="")
@@ -50,12 +51,13 @@ class AddRecordForm(forms.ModelForm):
 		model = Record
 		exclude = ("user",)
                 
-
+#This is for the drawing
 class DrawingForm(forms.ModelForm):
     class Meta:
         model = Drawing
         fields = ['image_data','drawing_name']
 
+#This is for rating the drawings user made
 class RatingForm(forms.ModelForm):
     class Meta:
         model = Drawing

@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+#These are all the different paths and what they lead to
 urlpatterns = [
     path('', views.home, name = 'home'),
     path('imagerate', views.imagerate, name = 'imagerate'),
