@@ -24,4 +24,5 @@ class Drawing(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     drawing_name = models.CharField(max_length=100, default="Untitled")
     rating = models.PositiveIntegerField(default=0)
+    username = models.CharField(max_length=50, default="None Assigned")
     

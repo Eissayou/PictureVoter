@@ -50,7 +50,9 @@
   <div class="image-container">
     <img src="{{ random_drawing.image_data }}" alt="Drawing">
     <h1> {{ random_drawing.drawing_name}} </h1>
-    <p1>Past Rating: {{random_drawing.rating}}</p1>
+    <p1> Submitted By: {{ random_drawing.username}} </p1>
+    </br>
+    <p1>Your Rating: {{random_drawing.rating}}</p1>
   </div>
 </br>
 <form method="post" enctype="multipart/form-data">

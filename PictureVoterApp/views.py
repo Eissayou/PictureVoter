@@ -80,7 +80,7 @@ def draw_and_submit(request):
         if form.is_valid():
             drawing_data = form.cleaned_data['image_data']
             drawing_name = form.cleaned_data['drawing_name'] 
-            Drawing.objects.create(image_data=drawing_data, drawing_name=drawing_name)
+            Drawing.objects.create(username=request.user.username, image_data=drawing_data, drawing_name=drawing_name)
             return redirect('draw_and_submit')  # Redirect after submission
     else:
         form = DrawingForm()
